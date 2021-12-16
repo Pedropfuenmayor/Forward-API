@@ -4,7 +4,7 @@ const app = express();
 const port = 3000;
 
 const projectsRoutes = require("./routes/projects");
-const challengesRoutes = require("./routes/challenges");
+
 
 app.use(bodyParser.json());
 
@@ -19,7 +19,6 @@ app.use((req, res, next) => {
 });
 
 app.use(projectsRoutes);
-app.use(challengesRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);

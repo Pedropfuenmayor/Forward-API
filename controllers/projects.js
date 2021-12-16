@@ -17,7 +17,7 @@ exports.getProjects = (req, res, next) => {
     });
 };
 
-exports.postProject = (req, res, next) => {
+exports.createProject = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const error = new Error("Validation failed, entered data is incorrect.");

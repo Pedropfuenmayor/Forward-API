@@ -3,20 +3,26 @@ const { body } = require("express-validator");
 
 const challengeControllers = require("../controllers/challenges");
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
-router.get("/project/:projectId/challenges", challengeControllers.getChallenges);
-
-// router.get("/challenge/:challengeId", projectControllers.getProject);
+router.get("/", challengeControllers.getChallenges);
 
 router.post(
-  "/project/:projectId/challenges",
+  "/",
   [body("challengeName").trim().isLength({ min: 1 })],
   challengeControllers.createChallenge
 );
 
-// router.put("/project/:projectId", projectControllers.updateProject);
+router.get("/:challengeId", challengeControllers.getChallenge);
 
-// router.delete("/project/:projectId", projectControllers.deleteProject);
+router.put(
+  "/:challengeId",
+  [body("challengeName").trim().isLength({ min: 1 })],
+  challengeControllers.updateChallenge
+);
+
+router.put("/", challengeControllers.selectChallenges);
+
+router.delete("/:challengeId", challengeControllers.deleteChallenge);
 
 module.exports = router;

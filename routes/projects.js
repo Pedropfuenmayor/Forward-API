@@ -1,5 +1,6 @@
 const express = require("express");
 const { body } = require("express-validator");
+const challengesRoutes = require("./challenges");
 
 const projectControllers = require("../controllers/projects");
 
@@ -7,16 +8,22 @@ const router = express.Router();
 
 router.get("/projects", projectControllers.getProjects);
 
-router.get("/project/:projectId", projectControllers.getProject);
-
 router.post(
-  "/project",
+  "/projects",
   [body("projectName").trim().isLength({ min: 1 })],
-  projectControllers.postProject
+  projectControllers.createProject
 );
 
-router.put("/project/:projectId", projectControllers.updateProject);
+router.get("/projects/:projectId", projectControllers.getProject);
 
-router.delete("/project/:projectId", projectControllers.deleteProject);
+router.put(
+  "/projects/:projectId",
+  [body("projectName").trim().isLength({ min: 1 })],
+  projectControllers.updateProject
+);
+
+router.delete("/projects/:projectId", projectControllers.deleteProject);
+
+router.use("/projects/:projectId/challenges", challengesRoutes);
 
 module.exports = router;
