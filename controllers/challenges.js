@@ -67,12 +67,12 @@ exports.getChallenge = (req, res, next) => {
   };
 
   exports.updateChallenge = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      const error = new Error("Validation failed, entered data is incorrect.");
-      error.statusCode = 422;
-      throw error;
-    }
+        const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error("Validation failed, entered data is incorrect.");
+    error.statusCode = 422;
+    throw error;
+  }
     const { challengeId } = req.params;
     const { challengeName } = req.body;
     Challenge.update(challengeId, challengeName)
