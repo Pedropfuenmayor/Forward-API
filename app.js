@@ -5,7 +5,6 @@ const port = 3000;
 
 const projectsRoutes = require("./routes/projects");
 
-
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
@@ -19,6 +18,7 @@ app.use((req, res, next) => {
 });
 
 app.use(projectsRoutes);
+
 
 app.use((error, req, res, next) => {
   console.log(error);

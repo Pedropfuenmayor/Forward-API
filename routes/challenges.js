@@ -5,6 +5,10 @@ const challengeControllers = require("../controllers/challenges");
 
 const router = express.Router({ mergeParams: true });
 
+const oqRoutes = require("./OQ");
+
+const ideasRoutes = require("./ideas");
+
 router.get("/", challengeControllers.getChallenges);
 
 router.post(
@@ -12,6 +16,8 @@ router.post(
   [body("challengeName").trim().isLength({ min: 1 })],
   challengeControllers.createChallenge
 );
+
+router.get("/selected", challengeControllers.chosenChallenges);
 
 router.get("/:challengeId", challengeControllers.getChallenge);
 
@@ -24,5 +30,9 @@ router.put(
 router.put("/", challengeControllers.selectChallenges);
 
 router.delete("/:challengeId", challengeControllers.deleteChallenge);
+
+router.use("/:challengeId/oq", oqRoutes);
+
+router.use("/:challengeId/ideas", ideasRoutes);
 
 module.exports = router;

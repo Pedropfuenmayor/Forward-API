@@ -33,21 +33,21 @@ exports.createChallenge = (req, res, next) => {
     challengeName,
     projectId,
     challengeType
-  );
-  challenge
-    .save()
-    .then(() => {
-      res.status(201).json({
-        message: "Challenge added successfully.",
+    );
+    challenge
+      .save()
+      .then(() => {
+        res.status(201).json({
+          message: "Challenge added successfully.",
+        });
+      })
+      .catch((err) => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
       });
-    })
-    .catch((err) => {
-      if (!err.statusCode) {
-        err.statusCode = 500;
-      }
-      next(err);
-    });
-};
+  };
 
 exports.getChallenge = (req, res, next) => {
     const { projectId, challengeId } = req.params;
@@ -67,6 +67,12 @@ exports.getChallenge = (req, res, next) => {
   };
 
   exports.updateChallenge = (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const error = new Error("Validation failed, entered data is incorrect.");
+      error.statusCode = 422;
+      throw error;
+    }
     const { challengeId } = req.params;
     const { challengeName } = req.body;
     Challenge.update(challengeId, challengeName)
@@ -90,6 +96,23 @@ exports.getChallenge = (req, res, next) => {
       .then(() => {
         res.status(200).json({
           message: "Challenges updated successfully.",
+        });
+      })
+      .catch((err) => {
+        if (!err.statusCode) {
+          err.statusCode = 500;
+        }
+        next(err);
+      });
+  };
+
+  exports.chosenChallenges = (req, res, next) => {
+    const { projectId } = req.params;
+    Challenge.chosenChallenges(projectId)
+      .then(({ rows }) => {
+        res.status(200).json({
+          message: "Chosen challenges fetched successfully.",
+          challenges: rows,
         });
       })
       .catch((err) => {
