@@ -11,8 +11,8 @@ router.post("/", actionsControllers.createAction);
 
 router.get("/", actionsControllers.getAction);
 
-router.put("/", actionsControllers.updateAction);
+router.put("/:actionId", actionsControllers.updateAction);
 
-router.delete("/", actionsControllers.deleteAction);
+router.delete("/:actionId", actionsControllers.deleteAction);
 
 module.exports = router;

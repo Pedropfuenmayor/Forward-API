@@ -68,9 +68,9 @@ exports.createAction = (req, res, next) => {
       error.statusCode = 422;
       throw error;
     }
-    const { ideaId } = req.params;
+    const { actionId } = req.params;
     const { what, dueDate, testUntil, succesCriteria} = req.body;
-    Action.update(what, dueDate, testUntil, succesCriteria, ideaId)
+    Action.update(what, dueDate, testUntil, succesCriteria, actionId)
       .then(() => {
         res.status(200).json({
           message: "Action updated successfully.",
@@ -85,8 +85,8 @@ exports.createAction = (req, res, next) => {
   };
 
   exports.deleteAction = (req, res, next) => {
-    const { ideaId } = req.params;
-    Action.delete(ideaId)
+    const { actionId } = req.params;
+    Action.delete(actionId)
       .then(() => {
         res.status(200).json({
             message: "Action deleted successfully.",
