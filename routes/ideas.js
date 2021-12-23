@@ -13,7 +13,7 @@ router.get("/", ideasControllers.getIdeas);
 
 router.post(
   "/",
-  [body("ideaName").trim().isLength({ min: 1 })],
+  [body("ideaName").trim().not().isEmpty()],
   ideasControllers.createIdea
 );
 
@@ -21,7 +21,7 @@ router.get("/:ideaId", ideasControllers.getIdea);
 
 router.put(
   "/:ideaId",
-  [body("ideaName").trim().isLength({ min: 1 })],
+  [body("ideaName").trim().not().isEmpty()],
   ideasControllers.updateIdea
 );
 

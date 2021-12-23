@@ -13,7 +13,7 @@ router.get("/", challengeControllers.getChallenges);
 
 router.post(
   "/",
-  [body("challengeName").trim().isLength({ min: 1 })],
+  [body("challengeName").trim().not().isEmpty()],
   challengeControllers.createChallenge
 );
 
@@ -23,7 +23,7 @@ router.get("/:challengeId", challengeControllers.getChallenge);
 
 router.put(
   "/:challengeId",
-  [body("challengeName").trim().isLength({ min: 1 })],
+  [body("challengeName").trim().not().isEmpty()],
   challengeControllers.updateChallenge
 );
 

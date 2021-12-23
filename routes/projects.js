@@ -10,7 +10,7 @@ router.get("/projects", projectControllers.getProjects);
 
 router.post(
   "/projects",
-  [body("projectName").trim().isLength({ min: 1 })],
+  [body("projectName").trim().not().isEmpty()],
   projectControllers.createProject
 );
 
@@ -18,7 +18,7 @@ router.get("/projects/:projectId", projectControllers.getProject);
 
 router.put(
   "/projects/:projectId",
-  [body("projectName").trim().isLength({ min: 1 })],
+  [body("projectName").trim().not().isEmpty()],
   projectControllers.updateProject
 );
 

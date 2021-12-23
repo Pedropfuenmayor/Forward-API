@@ -9,13 +9,13 @@ router.get("/", OQcontrollers.getOQ);
 
 router.post(
   "/",
-  [body("oqName").trim().isLength({ min: 1 })],
+  [body("oqName").trim().not().isEmpty()],
   OQcontrollers.createOQ
 );
 
 router.put(
   "/:oqId",
-  [body("oqName").trim().isLength({ min: 1 })],
+  [body("oqName").trim().not().isEmpty()],
   OQcontrollers.updateOQ
 );
 
